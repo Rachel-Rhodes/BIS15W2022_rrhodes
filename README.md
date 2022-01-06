@@ -1,1 +1,2 @@
-# BIS15W2022_rrhodes
+# Rachel Rhodes
+rerhodes@ucdavis.edu
