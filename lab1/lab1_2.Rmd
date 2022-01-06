@@ -1,5 +1,6 @@
 ---
 title: "R, RStudio, and RMarkdown"
+author: "Rachel Rhodes"
 date: "`r Sys.Date()`"
 output:
   html_document:
