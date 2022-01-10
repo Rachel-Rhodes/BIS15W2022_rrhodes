@@ -1,6 +1,6 @@
 ---
 title: "Lab 2 Homework"
-author: "Please Add Your Name Here"
+author: "Rachel Rhodes"
 date: "`r Sys.Date()`"
 output:
   html_document:
@@ -14,8 +14,10 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
 
 1. What is a vector in R?  
+A vector in r is there to help organize the data.
 
 2. What is a data matrix in R?  
+A data matrix in R is a series of vectors. Overall, a data matrix is almost identical to a data table.
 
 3. Below are data collected by three scientists (Jill, Steve, Susan in order) measuring temperatures of eight hot springs. Run this code chunk to create the vectors.  
 ```{r}
@@ -30,18 +32,80 @@ spring_8 <- c(36.80, 36.45, 33.15)
 ```
 
 4. Build a data matrix that has the springs as rows and the columns as scientists.  
+```{r}
+temperatures <- c(spring_1, spring_2, spring_3, spring_4, spring_5, spring_6, spring_7, spring_8)
+temperatures
+```
+
+```{r}
+hot_springs_matrix <- matrix(temperatures, nrow = 8, byrow = T)
+hot_springs_matrix
+```
+
+```{r}
+region <- c("Jill", "Steve", "Susan")
+region
+```
+
+```{r}
+springs <- c("spring_1", "spring_2", "spring_3", "spring_4", "spring_5", "spring_6", "spring_7", "spring_8")
+springs
+```
+
+```{r}
+colnames(hot_springs_matrix) <- region
+```
+
+```{r}
+rownames(hot_springs_matrix) <- springs
+```
+
+```{r}
+hot_springs_matrix
+```
 
 5. The names of the springs are 1.Bluebell Spring, 2.Opal Spring, 3.Riverside Spring, 4.Too Hot Spring, 5.Mystery Spring, 6.Emerald Spring, 7.Black Spring, 8.Pearl Spring. Name the rows and columns in the data matrix. Start by making two new vectors with the names, then use `colnames()` and `rownames()` to name the columns and rows.
+```{r}
+springs_names <- c("Bluebell Spring", "Opal Spring", "Riverside Spring", "Too Hot Spring", "Mystery Spring", "Emerald Spring", "Black Spring", "Pearl Spring")
+springs_names
+```
+
+```{r}
+rownames(hot_springs_matrix) <- springs_names
+```
+
+```{r}
+hot_springs_matrix
+```
 
 6. Calculate the mean temperature of all eight springs.
+```{r}
+temperature_mean <- rowMeans(hot_springs_matrix)
+temperature_mean
+```
 
 7. Add this as a new column in the data matrix.  
+```{r}
+all_hot_springs_matrix <- cbind(hot_springs_matrix, temperature_mean)
+all_hot_springs_matrix
+```
 
 8. Show Susan's value for Opal Spring only.
+```{r}
+hot_springs_matrix[2,3]
+```
 
 9. Calculate the mean for Jill's column only.  
+```{r}
+springs_temperature_Jill <- hot_springs_matrix [ ,1]
+mean(springs_temperature_Jill)
+```
 
 10. Use the data matrix to perform one calculation or operation of your interest.
-
+The median for Steve's column only
+```{r}
+springs_temperature_Steve <- hot_springs_matrix [ ,2]
+median(springs_temperature_Steve)
+```
 ## Push your final code to GitHub!
 Please be sure that you check the `keep md` file in the knit preferences.  
