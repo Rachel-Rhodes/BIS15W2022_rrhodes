@@ -1,0 +1,48 @@
+---
+title: "Project"
+author: "Rachel Rhodes"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(here)
+library(naniar)
+``` 
+
+```{r}
+getwd()
+```
+
+
+```{r}
+cites_wildlife_trade_database <- read_csv(here("Desktop", "BIS15W2022_rrhodes", "Project", "Data", "cites_wildlife_trade_database.csv"))
+```
+
+```{r}
+cites_wildlife_trade_database
+```
+
+```{r}
+anyNA(cites_wildlife_trade_database)
+```
+
+```{r}
+is.na(cites_wildlife_trade_database)
+```
+
+```{r}
+na.rm=T
+```
+
+
