@@ -1,0 +1,47 @@
+---
+title: "Project"
+author: "Rachel Rhodes"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: spacelab
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load the libraries
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(here)
+library(naniar)
+``` 
+
+```{r}
+getwd()
+```
+
+
+```{r}
+indian_food <- read_csv(here("Project", "Data", "indian_food.csv")) %>% janitor::clean_names()
+```
+
+```{r}
+indian_food
+```
+
+```{r}
+anyNA(indian_food)
+```
+
+```{r}
+indian_food( indian_food == -1) <- NA
+```
+
+Questions
+```{r}
+indian_food$prep_time <- as.factor(indian_food$prep_time)
+```
