@@ -88,6 +88,7 @@ Questions for plots:
 
 ```{r}
 flavor_diet <- indian_food %>% 
+  filter(!is.na(flavor_profile)) %>%
   ggplot(aes(x=flavor_profile, fill=diet))+
   geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") + 
   labs(title = "Flavor in Relationship to Diet",
@@ -97,8 +98,10 @@ flavor_diet <- indian_food %>%
 flavor_diet
 ```
 
+Yes
 ```{r}
 flavor_diet2 <- indian_food %>% 
+  filter(!is.na(flavor_profile)) %>%
   ggplot(aes(x=diet, fill=flavor_profile))+
   geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
   labs(title = "Flavor in Relationship to Diet",
@@ -112,6 +115,8 @@ flavor_diet2
 
 ```{r}
 flavor_state <- indian_food %>% 
+  filter(!is.na(flavor_profile)) %>%
+  filter(!is.na(state)) %>%
   ggplot(aes(x=flavor_profile, fill=state))+
   geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
   labs(title = "Flavor in Relationship to State",
@@ -121,9 +126,11 @@ flavor_state <- indian_food %>%
 flavor_state
 ```
 
-
+Yes
 ```{r}
 flavor_state2 <- indian_food %>% 
+  filter(!is.na(flavor_profile)) %>%
+  filter(!is.na(state)) %>%
   ggplot(aes(x=state, fill=flavor_profile))+
   geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
   labs(title = "Flavor in Relationship to State",
@@ -136,6 +143,8 @@ flavor_state2
 
 ```{r}
 flavor_region <- indian_food %>% 
+  filter(!is.na(flavor_profile)) %>%
+  filter(!is.na(region)) %>%
   ggplot(aes(x=flavor_profile, fill=region))+
   geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
   labs(title = "Flavor in Relationship to Region",
@@ -145,8 +154,11 @@ flavor_region <- indian_food %>%
 flavor_region
 ```
 
+Yes
 ```{r}
 flavor_region2 <- indian_food %>% 
+  filter(!is.na(flavor_profile)) %>%
+  filter(!is.na(region)) %>%
   ggplot(aes(x=region, fill=flavor_profile))+
   geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
   labs(title = "Flavor in Relationship to Region",
