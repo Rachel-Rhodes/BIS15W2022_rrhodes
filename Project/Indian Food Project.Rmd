@@ -12,19 +12,23 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Load the libraries
-```{r message=FALSE, warning=FALSE}
+##Section 1:
+This section illustrates how we loaded the data, assessed the data structure, and cleaned the data. 
+_Load Library_
+```{r}
 library(tidyverse)
+library(RColorBrewer)
+library(paletteer)
 library(janitor)
 library(here)
 library(naniar)
-``` 
+```
 
 ```{r}
 getwd()
 ```
 
-
+1. Load the data. 
 ```{r}
 indian_food <- read_csv(here("Project", "Data", "indian_food.csv")) %>% janitor::clean_names()
 ```
@@ -33,15 +37,121 @@ indian_food <- read_csv(here("Project", "Data", "indian_food.csv")) %>% janitor:
 indian_food
 ```
 
+2. Structure of the data. 
 ```{r}
-anyNA(indian_food)
+glimpse(indian_food)
 ```
 
 ```{r}
-indian_food( indian_food == -1) <- NA
+summary(indian_food)
 ```
 
-Questions
+What are the variables? 
 ```{r}
-indian_food$prep_time <- as.factor(indian_food$prep_time)
+names(indian_food)
+```
+
+Dealing with NA's
+_NA's in data is symbolized by a "-1"_
+```{r}
+indian_food<-indian_food%>%
+  na_if("-1")
+```
+
+Counting Number of NA's
+```{r}
+naniar::miss_var_summary(indian_food)
+```
+
+_Split Ingredients Into Their Own Row_
+We noticed that the ingredients were listed in one row, so we separated them into their own rows. 
+```{r}
+indian_food<-indian_food%>%
+  mutate_all(tolower)%>%
+  transform(ingredients=str_split(ingredients,","))%>%
+  unnest(ingredients)
+indian_food
+```
+Adding Total Cook Time column which combines cook time and prep time. 
+```{r}
+indian_food<-indian_food%>%
+  mutate(total_cook_time=as.numeric(cook_time)+as.numeric(prep_time))
+indian_food
+```
+
+##Section Two: Questions about the data.
+Questions for plots:
+3. flavor in relationship to diet
+7. state/region --> flavor profile
+
+3. What is the relationship between flavor and diet (i.e. is there more spicy dishes in non-vegetarian compared to vegetarian?)
+
+```{r}
+flavor_diet <- indian_food %>% 
+  ggplot(aes(x=flavor_profile, fill=diet))+
+  geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") + 
+  labs(title = "Flavor in Relationship to Diet",
+       x = "Flavor Profile",
+       y = "Count") +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
+flavor_diet
+```
+
+```{r}
+flavor_diet2 <- indian_food %>% 
+  ggplot(aes(x=diet, fill=flavor_profile))+
+  geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
+  labs(title = "Flavor in Relationship to Diet",
+       x = "Diet",
+       y = "Count") +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
+flavor_diet2
+```
+
+7. What flavor profile is more associated with which region/state?
+
+```{r}
+flavor_state <- indian_food %>% 
+  ggplot(aes(x=flavor_profile, fill=state))+
+  geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
+  labs(title = "Flavor in Relationship to State",
+       x = "Flavor Profile",
+       y = "Count") +
+  theme(plot.title = element_text(size = rel(1.0), hjust = 0.5))
+flavor_state
+```
+
+
+```{r}
+flavor_state2 <- indian_food %>% 
+  ggplot(aes(x=state, fill=flavor_profile))+
+  geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
+  labs(title = "Flavor in Relationship to State",
+       x = "State",
+       y = "Count") +
+  theme(plot.title = element_text(size = rel(1.0), hjust = 0.5))+
+   theme(axis.text.x = element_text(angle = 60, hjust = 1)) 
+flavor_state2
+```
+
+```{r}
+flavor_region <- indian_food %>% 
+  ggplot(aes(x=flavor_profile, fill=region))+
+  geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
+  labs(title = "Flavor in Relationship to Region",
+       x = "Flavor Profile",
+       y = "Count") +
+  theme(plot.title = element_text(size = rel(1.0), hjust = 0.5))
+flavor_region
+```
+
+```{r}
+flavor_region2 <- indian_food %>% 
+  ggplot(aes(x=region, fill=flavor_profile))+
+  geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
+  labs(title = "Flavor in Relationship to Region",
+       x = "Region",
+       y = "Count") +
+  theme(plot.title = element_text(size = rel(1.0), hjust = 0.5))
+flavor_region2
 ```
