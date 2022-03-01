@@ -167,3 +167,27 @@ flavor_region <- indian_food %>%
   theme(plot.title = element_text(size = rel(1.0), hjust = 0.5))
 flavor_region
 ```
+
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(radioButtons("x", "Select Fill Variable", choices = c("state", "region"), 
+                             selected = "x"), 
+                plotOutput("plot", width="600px", height="500px")
+)
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    ggplot(data=indian_food, aes_string(x="flavor_profile", fill=input$x))+
+      geom_bar(position="dodge")
+  })
+}
+
+shinyApp(ui, server)
+```
+
+```{r}
+names(indian_food)
+```
+
