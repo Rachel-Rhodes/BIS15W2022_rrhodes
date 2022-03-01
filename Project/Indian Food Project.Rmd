@@ -87,7 +87,7 @@ Questions for plots:
 3. What is the relationship between flavor and diet (i.e. is there more spicy dishes in non-vegetarian compared to vegetarian?)
 
 ```{r}
-flavor_diet <- indian_food %>% 
+flavor_diet2 <- indian_food %>% 
   filter(!is.na(flavor_profile)) %>%
   ggplot(aes(x=flavor_profile, fill=diet))+
   geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") + 
@@ -95,12 +95,12 @@ flavor_diet <- indian_food %>%
        x = "Flavor Profile",
        y = "Count") +
   theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
-flavor_diet
+flavor_diet2
 ```
 
 Yes
 ```{r}
-flavor_diet2 <- indian_food %>% 
+flavor_diet <- indian_food %>% 
   filter(!is.na(flavor_profile)) %>%
   ggplot(aes(x=diet, fill=flavor_profile))+
   geom_bar(na.rm=T, position="dodge",alpha=0.75, color="black") +
@@ -108,13 +108,13 @@ flavor_diet2 <- indian_food %>%
        x = "Diet",
        y = "Count") +
   theme(plot.title = element_text(size = rel(1.5), hjust = 0.5))
-flavor_diet2
+flavor_diet
 ```
 
 7. What flavor profile is more associated with which region/state?
 
 ```{r}
-flavor_state <- indian_food %>% 
+flavor_state2 <- indian_food %>% 
   filter(!is.na(flavor_profile)) %>%
   filter(!is.na(state)) %>%
   ggplot(aes(x=flavor_profile, fill=state))+
@@ -123,12 +123,12 @@ flavor_state <- indian_food %>%
        x = "Flavor Profile",
        y = "Count") +
   theme(plot.title = element_text(size = rel(1.0), hjust = 0.5))
-flavor_state
+flavor_state2
 ```
 
 Yes
 ```{r}
-flavor_state2 <- indian_food %>% 
+flavor_state <- indian_food %>% 
   filter(!is.na(flavor_profile)) %>%
   filter(!is.na(state)) %>%
   ggplot(aes(x=state, fill=flavor_profile))+
@@ -138,11 +138,11 @@ flavor_state2 <- indian_food %>%
        y = "Count") +
   theme(plot.title = element_text(size = rel(1.0), hjust = 0.5))+
    theme(axis.text.x = element_text(angle = 60, hjust = 1)) 
-flavor_state2
+flavor_state
 ```
 
 ```{r}
-flavor_region <- indian_food %>% 
+flavor_region2 <- indian_food %>% 
   filter(!is.na(flavor_profile)) %>%
   filter(!is.na(region)) %>%
   ggplot(aes(x=flavor_profile, fill=region))+
@@ -151,12 +151,12 @@ flavor_region <- indian_food %>%
        x = "Flavor Profile",
        y = "Count") +
   theme(plot.title = element_text(size = rel(1.0), hjust = 0.5))
-flavor_region
+flavor_region2
 ```
 
 Yes
 ```{r}
-flavor_region2 <- indian_food %>% 
+flavor_region <- indian_food %>% 
   filter(!is.na(flavor_profile)) %>%
   filter(!is.na(region)) %>%
   ggplot(aes(x=region, fill=flavor_profile))+
@@ -165,5 +165,5 @@ flavor_region2 <- indian_food %>%
        x = "Region",
        y = "Count") +
   theme(plot.title = element_text(size = rel(1.0), hjust = 0.5))
-flavor_region2
+flavor_region
 ```
