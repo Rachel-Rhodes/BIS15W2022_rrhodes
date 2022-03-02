@@ -1,11 +1,13 @@
 ---
 title: "Data Visualization: Venn Diagrams & Word Clouds"
+author: "Rachel Rhodes"
 date: "`r Sys.Date()`"
 output:
-  html_document:
+  html_document: 
     theme: spacelab
     toc: yes
     toc_float: yes
+    keep_md: yes
   pdf_document:
     toc: yes
 ---
@@ -82,7 +84,7 @@ Do they fly? Are they a bird?
 We can recycle the `flying_vec`  
 Do they fly?  
 ```{r}
-# flying_vec
+flying_vec
 ```
 
 Are they a bird?
@@ -206,7 +208,9 @@ Use dplyr to determine which 20 animals from this plot are:
 - Swimmers  
 - NOT Carnivores?  
 ```{r}
-
+homerange %>%
+  filter(thermoregulation == "ectotherm" & realm == "aquatic" & locomotion == "swimming" & trophic.guild != "carnivore") %>%
+  select(common.name, thermoregulation, realm, locomotion, trophic.guild)
 ```
 
 ## Word Clouds  
